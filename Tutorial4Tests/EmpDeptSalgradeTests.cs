@@ -130,11 +130,10 @@ public class EmpDeptSalgradeTests
         var emps = Database.GetEmps();
         var grades = Database.GetSalgrades();
 
-        //TODO
-        //var result = from emp in emps
-        //    join g in grades on 
+        var result = emps.SelectMany(e =>
+            grades.Where(g => g.Losal < e.Sal && g.Hisal > e.Sal).Select(g => new { e.EName, g.Grade }));
         
-        //Assert.Contains(result, r => r.EName == "ALLEN" && r.Grade == 3);
+        Assert.Contains(result, r => r.EName == "ALLEN" && r.Grade == 3);
     }
 
     // 9. Aggregation (AVG)
